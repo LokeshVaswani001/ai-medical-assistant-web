@@ -1,0 +1,95 @@
+.authScreen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-lg);
+}
+
+.authCard {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-xl);
+}
+
+.authCard__logo {
+  text-align: center;
+  margin-bottom: var(--sp-lg);
+}
+
+.authCard__mark {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--sp-sm);
+}
+
+.authCard__logo h1 {
+  font-size: 22px;
+}
+
+.authCard__logo p {
+  color: var(--ink-muted);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.authCard__label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  color: var(--ink-muted);
+  margin-top: var(--sp-md);
+  margin-bottom: 6px;
+}
+
+.authCard__input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px var(--sp-md);
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.authCard__input:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+.authCard__footer {
+  text-align: center;
+  margin-top: var(--sp-lg);
+  color: var(--ink-muted);
+  font-size: 14px;
+}
+
+.authCard__footer a {
+  color: var(--primary);
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.authCard__error {
+  background: var(--danger-tint);
+  color: var(--danger);
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  margin-top: var(--sp-md);
+}

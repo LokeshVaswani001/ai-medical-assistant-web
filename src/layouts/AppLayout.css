@@ -1,0 +1,22 @@
+.appLayout {
+  min-height: 100%;
+}
+
+.appLayout__content {
+  margin-left: var(--sidebar-width);
+  padding: var(--sp-xl);
+  min-height: 100vh;
+}
+
+.appLayout__inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .appLayout__content {
+    margin-left: 0;
+    padding: var(--sp-lg);
+    padding-top: 84px;
+  }
+}

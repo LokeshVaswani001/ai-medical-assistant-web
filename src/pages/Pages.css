@@ -1,0 +1,16 @@
+.pageTitle {
+  font-size: 26px;
+  letter-spacing: -0.3px;
+}
+
+.pageSubtitle {
+  color: var(--ink-muted);
+  margin-top: 4px;
+  margin-bottom: var(--sp-lg);
+}
+
+.sectionTitle {
+  font-size: 20px;
+  margin-top: var(--sp-xl);
+  margin-bottom: var(--sp-sm);
+}

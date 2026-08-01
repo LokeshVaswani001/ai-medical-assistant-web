@@ -1,0 +1,58 @@
+.pbtn {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 13px 22px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pbtn:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.pbtn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.pbtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pbtn--primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.pbtn--danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.pbtn--outline {
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+}
+
+.pbtn__spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

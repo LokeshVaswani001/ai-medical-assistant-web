@@ -1,0 +1,157 @@
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.brand__mark {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand--desktop {
+  padding: 0 var(--sp-sm);
+  margin-bottom: var(--sp-lg);
+}
+
+/* Desktop sidebar (default) */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: var(--sp-lg) var(--sp-md);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.nav__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px var(--sp-sm);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+
+.nav__item:hover {
+  background: var(--surface-sunken);
+}
+
+.nav__item--active {
+  background: var(--primary-tint);
+  color: var(--primary);
+}
+
+.nav__icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+.logout {
+  border: none;
+  background: transparent;
+  color: var(--danger);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px var(--sp-sm);
+  cursor: pointer;
+  text-align: left;
+}
+
+/* Mobile top bar + hamburger, hidden on desktop */
+.topbar {
+  display: none;
+}
+.hamburger {
+  display: none;
+}
+.overlay {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .brand--desktop {
+    display: none;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    padding: 0 var(--sp-md);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    z-index: 30;
+  }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  .hamburger span {
+    display: block;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(22, 36, 31, 0.35);
+    z-index: 15;
+  }
+
+  .sidebar {
+    top: 0;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    padding-top: 76px;
+  }
+
+  .sidebar--open {
+    transform: translateX(0);
+  }
+}
