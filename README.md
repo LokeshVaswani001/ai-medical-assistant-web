@@ -148,3 +148,8 @@ Open a Pull Request
 
 📄 License Information
 Distributed under the MIT License. See LICENSE file for more details.
+----
+
+## Crafted with ❤️ and Code by
+
+**Mahnoor Fatima Mustafa Ahmad & Lokesh Vaswani**
