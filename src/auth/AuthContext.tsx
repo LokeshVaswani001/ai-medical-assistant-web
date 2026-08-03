@@ -1,86 +1,60 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 
-type User = { name: string; email: string };
-type StoredUser = User & { password: string };
+interface User {
+  name: string;
+  email: string;
+}
 
-type AuthContextValue = {
+interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => { ok: boolean; error?: string };
-  signup: (name: string, email: string, password: string) => { ok: boolean; error?: string };
+  signup: (name: string, email: string, password: string) => Promise<{ ok: boolean; error?: string }>;
+  login: (email: string, password: string) => Promise<{ ok: boolean; error?: string }>;
   logout: () => void;
-};
-
-const AuthContext = createContext<AuthContextValue | null>(null);
-
-const USERS_KEY = "ama_registered_users";
-const SESSION_KEY = "ama_current_user";
-
-function getRegisteredUsers(): StoredUser[] {
-  try {
-    const raw = localStorage.getItem(USERS_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
 }
 
-function saveRegisteredUsers(users: StoredUser[]) {
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
-}
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    const saved = localStorage.getItem("user");
+    return saved ? JSON.parse(saved) : null;
+  });
 
-  useEffect(() => {
-    const raw = localStorage.getItem(SESSION_KEY);
-    if (raw) setUser(JSON.parse(raw));
-  }, []);
-
-  const signup: AuthContextValue["signup"] = (name, email, password) => {
-    const normalizedEmail = email.trim().toLowerCase();
-    const users = getRegisteredUsers();
-
-    if (users.some((u) => u.email === normalizedEmail)) {
-      return { ok: false, error: "An account with this email already exists. Please log in instead." };
-    }
-
-    const newUser: StoredUser = { name: name.trim(), email: normalizedEmail, password };
-    saveRegisteredUsers([...users, newUser]);
-
-    const sessionUser: User = { name: newUser.name, email: newUser.email };
-    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser));
-    setUser(sessionUser);
+  const signup = async (name: string, email: string, password: string) => {
+    // Local simulation: Signup data ko localStorage mein save karna
+    const newUser = { name, email };
+    setUser(newUser);
+    localStorage.setItem("user", JSON.stringify(newUser));
+    localStorage.setItem(`user_password_${email}`, password);
     return { ok: true };
   };
 
-  const login: AuthContextValue["login"] = (email, password) => {
-    const normalizedEmail = email.trim().toLowerCase();
-    const users = getRegisteredUsers();
-    const match = users.find((u) => u.email === normalizedEmail);
-
-    if (!match) {
-      return { ok: false, error: "This email isn't registered yet. Please sign up first, then log in." };
-    }
-    if (match.password !== password) {
-      return { ok: false, error: "Incorrect password." };
-    }
-
-    const sessionUser: User = { name: match.name, email: match.email };
-    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser));
-    setUser(sessionUser);
+  const login = async (email: string, password: string) => {
+    // Local simulation: Direct login without backend server
+    const name = email.split("@")[0];
+    const loggedUser = { name, email };
+    
+    setUser(loggedUser);
+    localStorage.setItem("user", JSON.stringify(loggedUser));
     return { ok: true };
   };
 
   const logout = () => {
-    localStorage.removeItem(SESSION_KEY);
     setUser(null);
+    localStorage.removeItem("user");
   };
 
-  return <AuthContext.Provider value={{ user, login, signup, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, signup, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
-  return ctx;
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 }

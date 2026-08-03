@@ -13,6 +13,13 @@ import DiseaseResult from "@/pages/DiseaseResult";
 import HealthReport from "@/pages/HealthReport";
 import BmiCalculator from "@/pages/BmiCalculator";
 
+// Profile Sub-Pages Imports
+import PersonalInformation from "@/pages/profile/PersonalInformation";
+import MedicalHistory from "@/pages/profile/MedicalHistory";
+import NotificationSettings from "@/pages/profile/NotificationSettings";
+import PrivacySecurity from "@/pages/profile/PrivacySecurity";
+import HelpSupport from "@/pages/profile/HelpSupport";
+
 export default function App() {
   return (
     <AuthProvider>
@@ -29,6 +36,14 @@ export default function App() {
               <Route path="/hospitals" element={<Hospitals />} />
               <Route path="/reminders" element={<Reminders />} />
               <Route path="/profile" element={<Profile />} />
+              
+              {/* Profile Sub-Pages Routes */}
+              <Route path="/profile/personal" element={<PersonalInformation />} />
+              <Route path="/profile/medical-history" element={<MedicalHistory />} />
+              <Route path="/profile/notifications" element={<NotificationSettings />} />
+              <Route path="/profile/privacy" element={<PrivacySecurity />} />
+              <Route path="/support" element={<HelpSupport />} />
+
               <Route path="/disease-result" element={<DiseaseResult />} />
               <Route path="/health-report" element={<HealthReport />} />
               <Route path="/bmi-calculator" element={<BmiCalculator />} />

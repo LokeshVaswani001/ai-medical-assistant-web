@@ -1,3 +1,4 @@
+// @ts-ignore: no type declarations for CSS module import
 import "./SymptomChip.css";
 
 export default function SymptomChip({

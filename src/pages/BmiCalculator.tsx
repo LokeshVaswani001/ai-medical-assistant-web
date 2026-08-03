@@ -2,7 +2,9 @@ import { useMemo, useState } from "react";
 import Card from "@/components/Card";
 import PrimaryButton from "@/components/PrimaryButton";
 import StatReadout from "@/components/StatReadout";
+// @ts-ignore: CSS module types are not declared in this project config
 import "./Pages.css";
+// @ts-ignore: CSS module types are not declared in this project config
 import "./AuthPages.css";
 
 function getCategory(bmi: number): { label: string; tone: "primary" | "danger" | "warning" | "success"; color: string } {

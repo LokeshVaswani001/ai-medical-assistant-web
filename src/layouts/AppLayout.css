@@ -1,22 +1,41 @@
+@keyframes appEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .appLayout {
   min-height: 100%;
+  background: var(--bg);
+  position: relative;
+  overflow-x: hidden;
 }
 
 .appLayout__content {
   margin-left: var(--sidebar-width);
-  padding: var(--sp-xl);
+  padding: var(--sp-xxl) var(--sp-xl);
   min-height: 100vh;
+  transition: margin-left 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+  animation: appEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .appLayout__inner {
   max-width: var(--content-max);
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xl);
 }
 
 @media (max-width: 900px) {
   .appLayout__content {
     margin-left: 0;
     padding: var(--sp-lg);
-    padding-top: 84px;
+    padding-top: 88px;
   }
 }

@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PrimaryButton from "@/components/PrimaryButton";
 import { useAuth } from "@/auth/AuthContext";
+// @ts-ignore
 import "./AuthPages.css";
 
 export default function Signup() {
@@ -13,20 +14,19 @@ export default function Signup() {
   const navigate = useNavigate();
   const { signup } = useAuth();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
 
-    setTimeout(() => {
-      const result = signup(name, email, password);
-      setLoading(false);
-      if (result.ok) {
-        navigate("/home");
-      } else {
-        setError(result.error ?? "Sign up nahi ho saka.");
-      }
-    }, 400);
+    const result = await signup(name, email, password);
+    setLoading(false);
+    
+    if (result.ok) {
+      navigate("/home");
+    } else {
+      setError(result.error ?? "Sign up nahi ho saka.");
+    }
   };
 
   return (

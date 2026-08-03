@@ -2,6 +2,7 @@ import Card from "@/components/Card";
 import StatReadout from "@/components/StatReadout";
 import { VITALS } from "@/data";
 import { useResponsive } from "@/hooks/useResponsive";
+// @ts-ignore: CSS imports are handled by the build toolchain
 import "./Pages.css";
 
 export default function HealthReport() {
@@ -11,22 +12,38 @@ export default function HealthReport() {
   const BarChart = ({ dataKey, color }: { dataKey: "heartRate" | "spo2"; color: string }) => {
     const max = dataKey === "heartRate" ? maxHR : 100;
     return (
-      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", height: 120 }}>
-        {VITALS.map((v) => (
-          <div key={v.day} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <div style={{ width: 14, height: (v[dataKey] / max) * 100, background: color, borderRadius: 8 }} />
-            <span style={{ fontFamily: "var(--font-mono)", color: "var(--ink-muted)", fontSize: 10, marginTop: 6 }}>{v.day}</span>
-          </div>
-        ))}
+      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", height: 120, paddingTop: 16 }}>
+        {VITALS.map((v) => {
+          const heightPercent = Math.max(12, (v[dataKey] / max) * 100);
+          return (
+            <div key={v.day} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div 
+                style={{ 
+                  width: 14, 
+                  height: `${heightPercent}%`, 
+                  background: color, 
+                  borderRadius: "var(--radius-full, 9999px)",
+                  boxShadow: `0 0 12px ${color}40`,
+                  transition: "height 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+                }} 
+              />
+              <span style={{ fontFamily: "var(--font-mono)", color: "var(--ink-muted)", fontSize: 11, fontWeight: 500 }}>
+                {v.day}
+              </span>
+            </div>
+          );
+        })}
       </div>
     );
   };
 
   return (
-    <div>
-      <h2 style={{ marginBottom: 16 }}>Weekly Summary</h2>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--sp-lg, 20px)" }}>
+      <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "var(--ink)", letterSpacing: "-0.5px" }}>
+        Weekly Summary
+      </h2>
 
-      <div style={{ display: "grid", gridTemplateColumns: isDesktop ? "repeat(4, 1fr)" : "repeat(2, 1fr)", gap: 8 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isDesktop ? "repeat(4, 1fr)" : "repeat(2, 1fr)", gap: 12 }}>
         <Card>
           <StatReadout label="Heart Rate" value="73" unit="bpm" tone="danger" size="sm" />
         </Card>
@@ -41,16 +58,18 @@ export default function HealthReport() {
         </Card>
       </div>
 
-      <Card style={{ marginTop: 16 }}>
-        <div style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 14, marginBottom: 16 }}>
+      <Card>
+        <div style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 15, color: "var(--ink)", marginBottom: 12 }}>
           Heart Rate (bpm) — Last 7 days
         </div>
         <BarChart dataKey="heartRate" color="var(--primary)" />
       </Card>
 
-      <Card style={{ marginTop: 16 }}>
-        <div style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 14, marginBottom: 16 }}>SpO2 (%) — Last 7 days</div>
-        <BarChart dataKey="spo2" color="var(--accent)" />
+      <Card>
+        <div style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 15, color: "var(--ink)", marginBottom: 12 }}>
+          SpO2 (%) — Last 7 days
+        </div>
+        <BarChart dataKey="spo2" color="var(--accent, var(--primary-dark))" />
       </Card>
     </div>
   );

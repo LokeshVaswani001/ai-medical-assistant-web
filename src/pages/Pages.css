@@ -1,16 +1,52 @@
+@keyframes fadeInUp3D {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) translateZ(-40px) rotateX(12deg);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateZ(0) rotateX(0deg);
+    filter: blur(0px);
+  }
+}
+
+/* Parent container ko 3D perspective dene ke liye (agar na ho toh ensure karein) */
+.pageTitle, 
+.pageSubtitle, 
+.sectionTitle {
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+}
+
 .pageTitle {
+  font-family: var(--font-display);
   font-size: 26px;
-  letter-spacing: -0.3px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+  animation: fadeInUp3D 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  text-shadow: 0 4px 12px rgba(22, 36, 31, 0.08);
 }
 
 .pageSubtitle {
+  font-family: var(--font-sans, inherit);
   color: var(--ink-muted);
+  font-size: 14px;
+  line-height: 1.5;
   margin-top: 4px;
   margin-bottom: var(--sp-lg);
+  animation: fadeInUp3D 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .sectionTitle {
+  font-family: var(--font-display);
   font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.3px;
   margin-top: var(--sp-xl);
-  margin-bottom: var(--sp-sm);
+  margin-bottom: var(--sp-md);
+  animation: fadeInUp3D 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  text-shadow: 0 3px 10px rgba(22, 36, 31, 0.06);
 }
